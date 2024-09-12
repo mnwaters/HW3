@@ -80,7 +80,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>#Homework 3</p>
+<section id="homework-3" class="level1">
+<h1>Homework 3</h1>
 <p>Read in dataset</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"hw2_list.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -90,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t_df <span class="ot">&lt;-</span> bp_list<span class="sc">$</span>treatment</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p_df <span class="ot">&lt;-</span> bp_list<span class="sc">$</span>placebo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>##Task 1</p>
+<section id="task-1" class="level2">
+<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
 <ol type="1">
 <li>Add new status column to both data frames within the bp_list</li>
 </ol>
@@ -113,48 +115,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">ifelse</span>(p_df<span class="sc">$</span>post_bp<span class="sc">&gt;</span><span class="dv">120</span> <span class="sc">&amp;</span> p_df<span class="sc">$</span>post_bp <span class="sc">&lt;=</span><span class="dv">130</span>, <span class="st">"Borderline"</span>,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">ifelse</span>(p_df<span class="sc">$</span>post_bp<span class="sc">&gt;</span><span class="dv">130</span>, <span class="st">"High"</span>,<span class="cn">NA</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>##Task 2</p>
+</section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
 <p>1.Create a function a. takes in a list with two data frames in it (a treatment and a placebo data frame) as an argument.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my_f <span class="ot">&lt;-</span> <span class="cf">function</span>(list) {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a> t_df <span class="ot">&lt;-</span> list<span class="sc">$</span>treatment</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> p_df <span class="ot">&lt;-</span> list<span class="sc">$</span>placebo</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sum_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(data_list) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> data_list<span class="sc">$</span>treatment</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  placebo <span class="ot">&lt;-</span> data_list<span class="sc">$</span>placebo</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="a">
 <li>takes in an R function (that would find a summary of a numeric column) with the default value being set to “mean” (notice this is a quoted string).</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_f <span class="ot">&lt;-</span> <span class="cf">function</span>(list) {</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a> t_df <span class="ot">&lt;-</span> list<span class="sc">$</span>treatment</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a> p_df <span class="ot">&lt;-</span> list<span class="sc">$</span>placebo</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.data.frame</span>(t_df))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    t_mean <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(t_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.data.frame</span>(p_df))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    p_mean <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(p_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sum_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(data_list, <span class="at">stat =</span> <span class="st">"mean"</span>) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> data_list<span class="sc">$</span>treatment</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  placebo <span class="ot">&lt;-</span> data_list<span class="sc">$</span>placebo</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="a">
 <li>Finds the statistic of interest (as defined by the user input) for the pre, post, and diff columns of both data frames. – Use my_fun &lt;- get(stat) within the function to get the function from the quoted string.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_f <span class="ot">&lt;-</span> <span class="cf">function</span>(list) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> t_df <span class="ot">&lt;-</span> list<span class="sc">$</span>treatment</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a> p_df <span class="ot">&lt;-</span> list<span class="sc">$</span>placebo</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.data.frame</span>(t_df)) {</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    t_mean <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(t_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">is.data.frame</span>(p_df)) {</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    p_mean <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(p_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sum_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(data_list, <span class="at">stat =</span> <span class="st">"mean"</span>) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> data_list<span class="sc">$</span>treatment</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  placebo <span class="ot">&lt;-</span> data_list<span class="sc">$</span>placebo</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>my_fun <span class="ot">&lt;-</span> <span class="fu">get</span>(stat)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  treatment_pre <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>pre)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  treatment_post <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>post)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  treatment_diff <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>diff)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  placebo_pre <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>pre)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  placebo_post <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>post)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  placebo_diff <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>diff)</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="4" type="a">
-<li><p>These six values should then be returned as a named list with meaningful names - this is a somewhat challenging part!</p></li>
-<li><p>Finally, apply your function to you list of data frames from previous. Use it without specifying your statistic, with specifying your statistic as “var”, “sd”, “min”, and “max”.</p></li>
+<li>These six values should then be returned as a named list with meaningful names - this is a somewhat challenging part!</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sum_stat <span class="ot">&lt;-</span> <span class="cf">function</span>(data_list, <span class="at">stat =</span> <span class="st">"mean"</span>) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> data_list<span class="sc">$</span>treatment</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  placebo <span class="ot">&lt;-</span> data_list<span class="sc">$</span>placebo</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>my_fun <span class="ot">&lt;-</span> <span class="fu">get</span>(stat)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  treatment_pre <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>pre)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  treatment_post <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>post)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  treatment_diff <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(treatment<span class="sc">$</span>diff)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  placebo_pre <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>pre)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  placebo_post <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>post)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  placebo_diff <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(placebo<span class="sc">$</span>diff)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">c</span>(treatment_pre, treatment_post, treatment_diff, placebo_pre, placebo_post, placebo_diff)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(values) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"treatment_"</span>, <span class="fu">c</span>(<span class="st">"pre_"</span>, <span class="st">"post_"</span>, <span class="st">"diff_"</span>), stat),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste0</span>(<span class="st">"placebo_"</span>, <span class="fu">c</span>(<span class="st">"pre_"</span>, <span class="st">"post_"</span>, <span class="st">"diff_"</span>), stat))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(values)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="a">
+<li>Finally, apply your function to you list of data frames from previous. Use it without specifying your statistic, with specifying your statistic as “var”, “sd”, “min”, and “max”.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_stat</span>(bp_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> treatment_pre_mean treatment_post_mean treatment_diff_mean    placebo_pre_mean 
+             131.60              125.95                5.65              131.90 
+  placebo_post_mean   placebo_diff_mean 
+             128.90                3.00 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_stat</span>(bp_list, <span class="at">stat =</span> <span class="st">"var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> treatment_pre_var treatment_post_var treatment_diff_var    placebo_pre_var 
+          75.72632           78.99737          117.81842          149.87778 
+  placebo_post_var   placebo_diff_var 
+         124.98889          341.33333 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_stat</span>(bp_list, <span class="at">stat =</span> <span class="st">"sd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> treatment_pre_sd treatment_post_sd treatment_diff_sd    placebo_pre_sd 
+         8.702087          8.888046         10.854419         12.242458 
+  placebo_post_sd   placebo_diff_sd 
+        11.179843         18.475209 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_stat</span>(bp_list, <span class="at">stat =</span> <span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> treatment_pre_min treatment_post_min treatment_diff_min    placebo_pre_min 
+               115                114                -24                114 
+  placebo_post_min   placebo_diff_min 
+               105                -21 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum_stat</span>(bp_list, <span class="at">stat =</span> <span class="st">"max"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> treatment_pre_max treatment_post_max treatment_diff_max    placebo_pre_max 
+               151                146                 21                152 
+  placebo_post_max   placebo_diff_max 
+               143                 33 </code></pre>
+</div>
+</div>
+</section>
+</section>
 
 </main>
 <!-- /main column -->
